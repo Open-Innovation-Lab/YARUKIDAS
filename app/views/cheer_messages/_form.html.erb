@@ -1,0 +1,20 @@
+<% form_for @cheer_message do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :id %><br />
+    <%= f.text_field :id %>
+  </p>
+  <p>
+    <%= f.label :from_user_id %><br />
+    <%= f.text_field :from_user_id %>
+  </p>
+  <p>
+    <%= f.label :to_user_id %><br />
+    <%= f.text_field :to_user_id %>
+  </p>
+  <p>
+    <%= f.label :contents %><br />
+    <%= f.text_field :contents %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

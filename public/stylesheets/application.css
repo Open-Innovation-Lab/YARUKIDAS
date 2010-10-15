@@ -1,0 +1,215 @@
+@charset "utf-8";
+body {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	background: #A9252D;
+	margin: 0; /* 複数の異なるブラウザの初期設定値に対応するため、body エレメントのマージンと余白を 0 にすることをお勧めします */
+	padding: 0;
+	text-align: center; /* これにより、IE 5* ブラウザではコンテナが中央揃えになります。そして、テキストは、#container セレクタの初期設定である左揃えに設定されます */
+	color: #000000;
+}
+
+
+.clearfix:after {
+	content: "."; 
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+
+.clearfix {
+	min-height: 1px;
+}
+
+* html .clearfix {
+	height: 1px;
+	/*\*//*/
+	height: auto;
+	overflow: hidden;
+	/**/
+}
+
+
+#top_logo   {
+	width: 100%;  /* これにより、幅がブラウザの幅の 80% のコンテナが設定されます */
+	background: #FFFFFF;
+	text-align: center; /* この設定は body エレメントの text-align: center より優先されます。 */
+	margin-top: 0;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
+	padding-top: 200px;
+}
+#top_login  {
+	padding-top: 15px;
+	padding-right: 20px;
+	padding-bottom: 0;
+	padding-left: 20px;
+}
+
+#header {
+	width:100%;
+	background-color:#FFFFFF;
+	margin:0px;
+	padding:0px;
+}
+
+#header #logo{
+	width:710px;
+	margin:0 auto 0 auto;
+	text-align:left;
+}
+
+#header #logo .image{
+	width:214px;
+	float:left;
+}
+
+#header #logo .banner{
+	float:left;
+	width:468px;
+	padding:7px 0px 5px 20px;
+}
+
+#contents .banner{
+	text-align:center;
+	padding:10px 0px 5px 0px;
+}
+
+
+#contents{
+	width:670px;
+	margin:10px auto 0 auto;
+	padding:3px;
+	background-color:#FFFFFF;
+}
+
+#contents_body{
+	padding:15px;
+	text-align:left;
+	line-height:150%;
+	font-size:12px;
+}
+	
+#contents_body .message{
+	padding:3px;
+	text-align:left;
+	border:solid 1px #660000;
+	background-color:#FFCCCC;
+	margin:10px 0 10px 0;
+	color:#990000;
+	font-weight:bold;
+}
+
+#contents_body .notexists_todo{
+	padding:3px;
+	text-align:center;
+	border:solid 1px #990000;
+	background-color:#FFEEEE;
+	margin:10px 0 10px 0;
+	color:#990000;
+	font-weight:bold;
+}
+
+#contents_body .form_remarks{
+	color:#666666;
+	font-size:12px;
+	margin:0px 0px 0px 5px;
+}
+
+.todo_form{
+}
+
+input.yrkds_text{
+	border:solid 1px #666666;
+	width:400px;
+}
+
+input.yrkds_submit{
+	border:solid 1px #666666;
+}
+
+.personal .icon{
+	float:left;
+	width:50px;
+	padding:3px;
+}
+.personal .data{
+	float:left;
+	width:350px;
+	padding:3px;
+}
+
+.personal .name{
+	border-bottom:solid 1px #DDCCCC;
+	width:560px;
+}
+
+.personal .stars{
+	color:#CC3300;
+}
+
+.personal .status{
+	color:#666666;
+}
+
+.todo h3{
+	font-size:14px;
+	padding-left:3px;
+	border-bottom:solid 1px #DDCCCC;
+	color:#990000;
+	background-color:#FFEEEE;
+	margin:10px 0px 5px 0px;
+}
+
+.todo ul{
+	margin:0px 20px 20px 30px;
+	padding:0px;
+}
+
+.todo li{
+	padding-left:3px;
+	margin:0px;
+	padding:3px;
+	border-bottom:dotted 1px #FFDDDD;
+	list-style-type:square;
+}
+
+.prog_days{
+	color:#999999;
+}
+
+.trainer h3{
+	font-size:14px;
+	padding:10px;
+	border-bottom:solid 1px #CCAAAA;
+	color:#330000;
+	background-color:#DDDDDD;
+	margin:10px 0px 5px 0px;
+}
+
+.t_message{
+	margin-bottom:10px;
+}
+
+.trainer .icon{
+	float:left;
+	width:150px;
+	padding:3px;
+}
+.trainer .data{
+	float:left;
+	width:450px;
+	padding:15px;
+}
+
+#footer{
+	color:#FFFFFF;
+	font-weight:bold;
+	padding:15px;
+	font-size:12px;
+}
+
+#footer a{
+	color:#FFFFFF;
+}

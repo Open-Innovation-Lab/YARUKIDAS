@@ -1,0 +1,23 @@
+<% title "Cheer Messages" %>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>From User</th>
+    <th>To User</th>
+    <th>Contents</th>
+  </tr>
+  <% for cheer_message in @cheer_messages %>
+    <tr>
+      <td><%=h cheer_message.id %></td>
+      <td><%=h cheer_message.from_user_id %></td>
+      <td><%=h cheer_message.to_user_id %></td>
+      <td><%=h cheer_message.contents %></td>
+      <td><%= link_to "Show", cheer_message %></td>
+      <td><%= link_to "Edit", edit_cheer_message_path(cheer_message) %></td>
+      <td><%= link_to "Destroy", cheer_message, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Cheer Message", new_cheer_message_path %></p>

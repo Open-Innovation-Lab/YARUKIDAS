@@ -1,0 +1,20 @@
+<% form_for @user_comment do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :id %><br />
+    <%= f.text_field :id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :trainers_message_id %><br />
+    <%= f.text_field :trainers_message_id %>
+  </p>
+  <p>
+    <%= f.label :contents %><br />
+    <%= f.text_field :contents %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

@@ -1,0 +1,21 @@
+<% title "Trainers Messages" %>
+
+<p><%= link_to "New Trainers Message", new_trainers_message_path %></p>
+
+<table>
+  <tr>
+    <th>Trainer</th>
+    <th>Contents</th>
+    <th>Date</th>
+  </tr>
+  <% @trainers_messages.reverse_each do |trainers_message| %>
+    <tr>
+      <td><%=h trainers_message.trainer.name %></td>
+      <td><%=h truncate(trainers_message.contents, :length => 60) %></td>
+      <td><%=h trainers_message.date %></td>
+      <td><%= link_to "Show", trainers_message %></td>
+      <td><%= link_to "Edit", edit_trainers_message_path(trainers_message) %></td>
+      <td><%= link_to "Destroy", trainers_message, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>

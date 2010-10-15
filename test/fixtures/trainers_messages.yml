@@ -1,0 +1,11 @@
+one:
+  id: 1
+  trainer_id: 1
+  contents: MyText
+  date: 2010-09-23
+
+two:
+  id: 2
+  trainer_id: 1
+  contents: MyText
+  date: 2010-09-23

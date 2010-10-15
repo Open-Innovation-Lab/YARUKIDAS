@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%= APP_CONFIG[:site_title] %></title>
+<%= stylesheet_link_tag 'application' %>
+<%= javascript_include_tag :defaults %>
+<%= google_analytics %>
+</head>
+<body>
+<div id="header">
+  <div id="logo" class="clearfix">
+    <div class="image">
+      <%= link_to (image_tag 'yrkds_logo_header.gif', :alt => 'ヤルキダス', :size => '214x74', :border => '0'), :controller => 'top' %>
+    </div>
+    <div class='banner'>
+      <%= link_to (image_tag 'banner468_1.jpg', :alt => 'Open Innovation Lab', :size => '468x60', :border => '0'), 'http://oil-710.com/', :target => '_blank' %>
+    </div>
+  </div>
+</div>
+</div>
+<div id="contents">
+<%= image_tag 'yrkds_line.gif', :size => '670x34' %>
+<div id="contents_body">
+<%- flash.each do |name, msg| -%>
+<div class="message">
+  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+</div>
+<%- end -%>
+<!-- Begin Contents Body -->
+<%= yield %>
+<% unless logged_in? %>
+<div class="notexists_todo"><%= link_to 'あなたも今日から本気だしませんか', root_path %></div>
+<% end %>
+<div class="banner">
+  <%= link_to (image_tag 'banner468_2.jpg', :alt => 'Open Innovation Lab', :size => '468x60', :border => '0'), 'http://oil-710.com/', :target => '_blank' %>
+</div>
+<!-- End Contents Body -->
+</div>
+<%= image_tag 'yrkds_line.gif', :size => '670x34' %>
+</div>
+<div id="footer">Produced by <a href="http://oil-710.com/" target="_blank">Open Innovation Lab</a></div>
+</body>
+</html>

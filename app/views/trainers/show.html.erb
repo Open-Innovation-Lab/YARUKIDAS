@@ -1,0 +1,16 @@
+<% title "Trainer" %>
+
+<p>
+  <strong>Id:</strong>
+  <%=h @trainer.id %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%=h @trainer.name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_trainer_path(@trainer) %> |
+  <%= link_to "Destroy", @trainer, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", trainers_path %>
+</p>

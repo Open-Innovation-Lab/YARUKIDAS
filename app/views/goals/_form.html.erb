@@ -1,0 +1,28 @@
+<% form_for @goal do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :id %><br />
+    <%= f.text_field :id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :opened_at %><br />
+    <%= f.date_select :opened_at %>
+  </p>
+  <p>
+    <%= f.label :closed_at %><br />
+    <%= f.date_select :closed_at %>
+  </p>
+  <p>
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.label :subject %><br />
+    <%= f.text_area :subject %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

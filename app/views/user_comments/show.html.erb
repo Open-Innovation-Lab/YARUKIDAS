@@ -1,0 +1,24 @@
+<% title "User Comment" %>
+
+<p>
+  <strong>Id:</strong>
+  <%=h @user_comment.id %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%=h @user_comment.user_id %>
+</p>
+<p>
+  <strong>Trainers Message:</strong>
+  <%=h @user_comment.trainers_message_id %>
+</p>
+<p>
+  <strong>Contents:</strong>
+  <%=h @user_comment.contents %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_user_comment_path(@user_comment) %> |
+  <%= link_to "Destroy", @user_comment, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", user_comments_path %>
+</p>

@@ -1,0 +1,24 @@
+<% title "Cheer Message" %>
+
+<p>
+  <strong>Id:</strong>
+  <%=h @cheer_message.id %>
+</p>
+<p>
+  <strong>From User:</strong>
+  <%=h @cheer_message.from_user_id %>
+</p>
+<p>
+  <strong>To User:</strong>
+  <%=h @cheer_message.to_user_id %>
+</p>
+<p>
+  <strong>Contents:</strong>
+  <%=h @cheer_message.contents %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_cheer_message_path(@cheer_message) %> |
+  <%= link_to "Destroy", @cheer_message, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", cheer_messages_path %>
+</p>

@@ -1,0 +1,18 @@
+<p>
+  <b>Goal:</b>
+  <%=h @cheer_log.goal_id %>
+</p>
+
+<p>
+  <b>From user:</b>
+  <%=h @cheer_log.from_user_id %>
+</p>
+
+<p>
+  <b>To user:</b>
+  <%=h @cheer_log.to_user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_cheer_log_path(@cheer_log) %> |
+<%= link_to 'Back', cheer_logs_path %>

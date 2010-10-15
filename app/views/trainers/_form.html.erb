@@ -1,0 +1,16 @@
+<% form_for @trainer do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :alias %><br />
+    <%= f.text_field :alias %>
+  </p>
+  <p>
+    <%= f.label :profile_image_url %><br />
+    <%= f.text_field :profile_image_url %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

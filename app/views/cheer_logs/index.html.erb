@@ -1,0 +1,24 @@
+<h1>Listing cheer_logs</h1>
+
+<table>
+  <tr>
+    <th>Goal</th>
+    <th>From user</th>
+    <th>To user</th>
+  </tr>
+
+<% @cheer_logs.each do |cheer_log| %>
+  <tr>
+    <td><%=h cheer_log.goal_id %></td>
+    <td><%=h cheer_log.from_user_id %></td>
+    <td><%=h cheer_log.to_user_id %></td>
+    <td><%= link_to 'Show', cheer_log %></td>
+    <td><%= link_to 'Edit', edit_cheer_log_path(cheer_log) %></td>
+    <td><%= link_to 'Destroy', cheer_log, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New cheer_log', new_cheer_log_path %>

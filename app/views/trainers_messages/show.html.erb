@@ -1,0 +1,36 @@
+<div class="trainer">
+	<h3>トレーナーからのメッセージ[ <%=h @trainers_message.trainer.name %> : <%=h @trainers_message.date %> ]<!-- <a href="#">トレーナー一覧</a> | <a href="#">新規作成</a>--></h3>
+    <div class="t_message clearfix">
+        <div class="icon">
+        <%= image_tag 'http://creyle-upload.rimg.jp/entry_big_picture/96/5d/70740/20152/70740-20152-3428.e.jpg', :alt => 'kazuyo', :border => '0'%>
+        </div>
+        <div id="trainer_message" class="data">
+          <%=hbr truncate(@trainers_message.contents, :length => 300) %><br />
+          <br />
+          <%= link_to_remote "続きを読む", :url => { :action => 'read_more_trainer_message', :id => @trainers_message.id} %>
+        </div>
+    </div>
+    <div class="trainer_form"></div>
+</div>
+<div class="todo">
+  <div class="todo_form"></div>
+  <h3>感想コメント</h3>
+  <ul>
+    <% @user_comments.each do |user_comment| %>
+    <li>
+      <%= link_to (image_tag user_comment.user.profile_image_url, :size => '24x24', :alt => 'profile_image', :border => '0'), 'http://twitter.com/' + user_comment.user.login, :target => '_blank' %>
+      <%=h user_comment.contents %>:<%= link_to user_comment.user.login, 'http://twitter.com/' + user_comment.user.login, :target => '_blank' %>(<%= user_comment.created_at.strftime("%Y/%m/%d %H:%M:%S") %>)
+    </li>
+    <% end %>
+  </ul>
+  <% if logged_in? %>
+    <div class="trainer_form">
+      <% form_tag :controller => 'top', :action => 'comment' do %>
+        <%= text_field_tag 'comment', '', :size => '70', :class => 'yrkds_text' %>
+        <%= submit_tag '感想＆ツイート', :class => 'yrkds_submit' %>
+        <%= hidden_field_tag 'user_id', current_user.id %>
+        <%= hidden_field_tag 'trainers_message_id', @trainers_message.id %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

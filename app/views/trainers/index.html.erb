@@ -1,0 +1,23 @@
+<% title "Trainers" %>
+
+<table>
+  <tr>
+    <th></th>
+    <th>ID</th>
+    <th>Name</th>
+    <th>alias</th>
+  </tr>
+  <% for trainer in @trainers %>
+    <tr>
+      <td><%= image_tag trainer.profile_image_url.to_s, :alt => trainer.alias, :size => '48x48' %></td>
+      <td><%=h trainer.id %></td>
+      <td><%=h trainer.name %></td>
+      <td><%=h trainer.alias %></td>
+      <td><%= link_to "Show", trainer %></td>
+      <td><%= link_to "Edit", edit_trainer_path(trainer) %></td>
+      <td><%= link_to "Destroy", trainer, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Trainer", new_trainer_path %></p>

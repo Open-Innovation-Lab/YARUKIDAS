@@ -1,0 +1,11 @@
+*.tmproj
+.DS_Store
+*.swp 
+log/*.log
+log/*.pid 
+tmp/**/* 
+tmp/restart.txt
+config/database.yml
+config/twitter_auth.yml
+config/deploy.rb
+db/*.sqlite3

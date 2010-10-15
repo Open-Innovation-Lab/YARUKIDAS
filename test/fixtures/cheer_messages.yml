@@ -1,0 +1,11 @@
+one:
+  id: 1
+  from_user_id: 1
+  to_user_id: 1
+  contents: MyString
+
+two:
+  id: 2
+  from_user_id: 1
+  to_user_id: 1
+  contents: MyString

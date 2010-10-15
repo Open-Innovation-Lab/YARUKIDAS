@@ -1,0 +1,23 @@
+<% title "User Comments" %>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>User</th>
+    <th>Trainers Message</th>
+    <th>Contents</th>
+  </tr>
+  <% for user_comment in @user_comments %>
+    <tr>
+      <td><%=h user_comment.id %></td>
+      <td><%=h user_comment.user_id %></td>
+      <td><%=h user_comment.trainers_message_id %></td>
+      <td><%=h user_comment.contents %></td>
+      <td><%= link_to "Show", user_comment %></td>
+      <td><%= link_to "Edit", edit_user_comment_path(user_comment) %></td>
+      <td><%= link_to "Destroy", user_comment, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New User Comment", new_user_comment_path %></p>
