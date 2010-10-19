@@ -49,6 +49,14 @@ class HomeController < ApplicationController
       :conditions => ["trainer_id = ? and date = ?", 1, Time.now.strftime("%Y-%m-%d")]
     )
 
+    #なかったら、今日以前の一番最新のメッセージを拾う
+    if !@trainers_message
+      @trainers_message = TrainersMessage.find(
+        :first,
+        :conditions => ["trainer_id = ? and date <= ?", 1, Time.now.strftime("%Y-%m-%d")]
+      )
+    end
+
   end
 
   def finished
