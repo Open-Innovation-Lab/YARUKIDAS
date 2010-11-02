@@ -53,7 +53,8 @@ class HomeController < ApplicationController
     if !@trainers_message
       @trainers_message = TrainersMessage.find(
         :first,
-        :conditions => ["trainer_id = ? and date <= ?", 1, Time.now.strftime("%Y-%m-%d")]
+        :conditions => ["trainer_id = ? and date <= ?", 1, Time.now.strftime("%Y-%m-%d")],
+        :order => 'date desc'
       )
     end
 
