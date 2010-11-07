@@ -20,6 +20,11 @@
           <%= goal.subject %>（<%= goal.created_at.strftime("%Y/%m/%d") %>）
         </div>
         <div class="status">
+          <% form_tag ({ :action => 'cheer' }, { :style => 'float:left' }) do %>
+            <%= submit_tag 'がんばって！', :class => 'yrkds_submit' %>
+            <%= hidden_field_tag 'to_user_id', goal.user.id %>
+            <%= hidden_field_tag 'id', goal.id %>
+          <% end %>
           <% form_tag :action => 'create_goal' do %>
             <%= submit_tag '自分もヤル', :class => 'yrkds_submit' %>
             <%= hidden_field_tag 'goal_id', goal.id %>

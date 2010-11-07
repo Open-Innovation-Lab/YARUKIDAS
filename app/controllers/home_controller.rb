@@ -43,23 +43,24 @@ class HomeController < ApplicationController
   end
 
   def cheer
-    @cheer_message = CheerMessage.new
-    @cheer_message.from_user_id = params[:from_user_id]
-    @cheer_message.to_user_id = params[:to_user_id]
-    @cheer_message.contents = params[:cheer]
-    @cheer_message.save
+    @cheer_log = CheerLog.new
+    @cheer_log.from_user_id = current_user.id
+    @cheer_log.to_user_id = params[:to_user_id]
+    @cheer_log.goal_id = params[:id]
+    @cheer_log.save
+    
+    @goal = Goal.find(params[:id])
+
+    flash[:notice] = @goal.user.login + "さんを応援しました！"
 
     if RAILS_ENV == "production"
-      flash[:notice] = @cheer_message.to_user.login + "さんに応援メッセージを送ったよ"
-
-      @shorten_url = shorten_url(user_page_url @cheer_message.to_user.login)
-      @tweet = "@" + @cheer_message.to_user.login + " 「" + @cheer_message.contents + "」 " + @shorten_url + " #yrkds"
+      @shorten_url = shorten_url(user_page_url @goal.user.login)
+      @tweet = "がんばって！ RT @" + @goal.user.login + ":「" + @goal.subject + "」 " + @shorten_url + " #yrkds"
 
       tweet @tweet
       return
     end
-
-    redirect_to :controller => 'home'
-  end
     
+    redirect_to root_path
+  end    
 end
