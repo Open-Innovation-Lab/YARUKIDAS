@@ -1,96 +1,32 @@
-<div class="personal clearfix">
-  <div class="icon">
-    <%= link_to (image_tag @user.profile_image_url, :size => '48x48', :alt => 'profile_image', :border => '0'), 'http://twitter.com/' + @user.login, :target => '_blank' %>
-  </div>
-  <div class="data">
-    <div class="name">
-      <%=h link_to @user.login + '(' + @user.name + ')さん', 'http://twitter.com/' + @user.login, :target => '_blank' %>
-      <% if @mypage %>
-        <%= link_to 'ログアウト', :controller => 'sessions', :action => 'destroy' %>
-      <% else %>
-        <%= link_to 'ホームへ戻る', :controller => 'top' %>
-      <% end %>
-    </div>
-    <div class="stars">
-      <%= stars(@finished_goals.size) %>
-    </div>
-    <div class="status">
-      ヤルコト:<%= @goals.size %>件 / ヤッタコト:<%= @finished_goals.size %>件
-    </div>
-  </div>
-</div>
-<div class="todo">
-<% if @goals.size == 0 && @mypage %>
-  <div class="notexists_todo">
-    ヤルコトがまだ設定されていません。<br/>
-    登録＆宣言して目標を達成していきましょう！
-  </div>
-<% end %>
-<% if @mypage %>
-  <div class="todo_form">
-    <% form_tag :action => :create_goal do %>
-      <%= text_field_tag 'new_goal', '', :size => '70', :class => 'yrkds_text' %>
-      <%= submit_tag '目標設定＆ツイート', :class => 'yrkds_submit' %><br />
-    <% end %>
-    <p class="form_remarks">例）○○をやる、○○を終わらせる、○kg痩せる、○日禁煙する、等</p>
-  </div>
-<% end %>
-<% if @goals.size > 0 %>
-  <h3>ヤルコト</h3>
-  <ul id="goals">
-    <%= render :partial => 'goal', :collection => @goals %>
-  </ul>
-<% end %>
-<% if @finished_goals.size > 0 %>
-  <h3>ヤッタコト</h3>
-<% end %>
-  <ul id="finished">
-    <% @finished_goals.each do |finished_goal| %>
-      <li><%=h finished_goal.subject %><span class="prog_days">[達成まで<%= (((finished_goal.closed_at - finished_goal.opened_at) / (60 * 60 * 24)) + 1).to_i %>日]</span></li>
-    <% end %>
-  </ul>
-  <h3>応援・激励メッセージ</h3>
-  <ul>
-  <% if @cheer_messages.size == 0 %>
-    <li>まだ何もありません。</li>
-  <% else %>
-    <% @cheer_messages.each do |cheer_message| %>
-      <li><%= link_to (image_tag cheer_message.from_user.profile_image_url, :size => '24x24', :alt => 'profile_image', :border => '0'), 'http://twitter.com/' + cheer_message.from_user.login, :target => '_blank' %> <%= cheer_message.contents %>（<%= link_to cheer_message.from_user.login, 'http://twitter.com/' + cheer_message.from_user.login, :target => '_blank' %>さんから）</li>
-    <% end %>
+<div class="todo_form">
+  <% form_tag :action => :create_goal do %>
+    <%= text_field_tag 'new_goal', '', :size => '70', :class => 'yrkds_text' %>
+    <%= submit_tag '目標設定＆ツイート', :class => 'yrkds_submit' %><br />
   <% end %>
-  </ul>
-<% if !@mypage && logged_in? %>
-  <div class="todo_form">
-    <% form_tag :action => 'cheer' do %>
-      <%= text_field_tag 'cheer', '', :size => '70', :class => 'yrkds_text' %>
-      <%= submit_tag '応援＆ツイート', :class => 'yrkds_submit' %>
-      <%= hidden_field_tag 'from_user_id', current_user.id %>
-      <%= hidden_field_tag 'to_user_id', @user.id %>
-    <% end %>
-  </div>
-<% end %>
+  <p class="form_remarks">例）○○をやる、○○を終わらせる、○kg痩せる、○日禁煙する、等</p>
 </div>
-<hr/>
-<div class="trainer">
-	<h3>トレーナーからのメッセージ[ <%=h link_to @trainers_message.trainer.name + ' : ' + @trainers_message.date.strftime("%Y/%m/%d"), '/t/' + @trainers_message.trainer.alias + '/' + @trainers_message.date.strftime("%Y%m%d") %> ]<!-- <a href="#">トレーナー変更</a> | <a href="#">新規作成</a> --></h3>
-  <div class="t_message clearfix">
-    <div class="icon">
-      <%= image_tag @trainers_message.trainer.profile_image_url, :alt => 'kazuyo', :border => '0'%><br />
-    </div>
-    <div id="trainer_message" class="data">
-      <%=hbr truncate(@trainers_message.contents, :length => 160) %><br />
-      <br />
-      <%= link_to_remote "続きを読む", :url => { :action => 'read_more_trainer_message', :id => @trainers_message.id} %>
+<div class="yarukotos clearfix">
+  <% @goals.each do |goal| %>
+  <div class="yarukoto">
+    <div class="personal clearfix">
+      <div class="icon">
+        <%= image_tag goal.user.profile_image_url, :size => '48x48', :alt => 'profile_image', :border => '0' %>
+      </div>
+      <div class="data">
+        <div class="name">
+          <%= goal.user.login%>さん
+        </div>
+        <div class="stars">
+          <%= goal.subject %>（<%= goal.created_at.strftime("%Y/%m/%d") %>）
+        </div>
+        <div class="status">
+<!--
+          <input type="submit" class="yrkds_submit" value="がんばって！" />
+          <input type="submit" class="yrkds_submit" value="自分もヤル" />
+-->
+        </div>
+      </div>
     </div>
   </div>
-<% if @mypage %>
-  <div class="trainer_form">
-    <% form_tag :controller => 'top', :action => 'comment' do %>
-      <%= text_field_tag 'comment', '', :size => '70', :class => 'yrkds_text' %>
-      <%= submit_tag '感想＆ツイート', :class => 'yrkds_submit' %>
-      <%= hidden_field_tag 'user_id', @user.id %>
-      <%= hidden_field_tag 'trainers_message_id', @trainers_message.id %>
-    <% end %>
-  </div>
-<% end %>
+  <% end %>
 </div>

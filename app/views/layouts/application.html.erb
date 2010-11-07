@@ -27,6 +27,10 @@
   <%= content_tag :div, msg, :id => "flash_#{name}" %>
 </div>
 <%- end -%>
+<div class="tabs clearfix">
+  <div class="tab"><%= link_to 'みんなのヤルコト', :controller => 'home' %></div>
+  <div class="tab"><%= link_to '自分のヤルコト', :controller => 'mypage' %></div>
+</div>
 <!-- Begin Contents Body -->
 <%= yield %>
 <% unless logged_in? %>
