@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     @goals = Goal.find(
      :all,
      :order => 'opened_at DESC',
-     :limit => 3
+     :limit => 10
     )
   end
 
