@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   def index
     @goals = Goal.find(
      :all,
+     :conditions => ["user_id != ?", current_user.id],
      :order => 'opened_at DESC',
      :limit => 10
     )
