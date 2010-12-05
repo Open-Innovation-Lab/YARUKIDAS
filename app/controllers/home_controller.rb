@@ -1,11 +1,19 @@
 class HomeController < ApplicationController
   def index
-    @goals = Goal.find(
-     :all,
-     :conditions => ["user_id != ?", current_user.id],
-     :order => 'opened_at DESC',
-     :limit => 10
-    )
+    if logged_in?
+      @goals = Goal.find(
+        :all,
+        :conditions => ["user_id != ?", current_user.id],
+        :order => 'opened_at DESC',
+        :limit => 10
+      )
+    else
+      @goals = Goal.find(
+        :all,
+        :order => 'opened_at DESC',
+        :limit => 10
+      )
+    end
   end
 
   def create_goal
