@@ -3,13 +3,14 @@ class HomeController < ApplicationController
     if logged_in?
       @goals = Goal.find(
         :all,
-        :conditions => ["user_id != ?", current_user.id],
+        :conditions => ["user_id != ? and user_id != 0", current_user.id],
         :order => 'opened_at DESC',
         :limit => 10
       )
     else
       @goals = Goal.find(
         :all,
+        :conditions => ["user_id != 0"],
         :order => 'opened_at DESC',
         :limit => 10
       )
