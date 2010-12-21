@@ -1,6 +1,7 @@
 development:
   domain: http://yarukidas/
   site_title: YARUKIDAS-ヤルキダス- モチベーションが加速するソーシャルTODOサービス
+  home_perpage: 10
 
 test:
   domain: test.host
@@ -8,3 +9,4 @@ test:
 production:
   site_domain: http://yarukidas.me/
   site_title: YARUKIDAS-ヤルキダス- モチベーションが加速するソーシャルTODOサービス
+  home_perpage: 10

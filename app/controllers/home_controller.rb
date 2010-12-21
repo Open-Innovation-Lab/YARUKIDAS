@@ -1,18 +1,18 @@
 class HomeController < ApplicationController
   def index
     if logged_in?
-      @goals = Goal.find(
-        :all,
+      @goals = Goal.paginate(
+        :page => params[:page],
         :conditions => ["user_id != ? and user_id != 0", current_user.id],
         :order => 'opened_at DESC',
-        :limit => 10
+        :per_page => APP_CONFIG[:home_perpage]
       )
     else
-      @goals = Goal.find(
-        :all,
+      @goals = Goal.paginate(
+        :page => params[:page],
         :conditions => ["user_id != 0"],
         :order => 'opened_at DESC',
-        :limit => 10
+        :per_page => APP_CONFIG[:home_perpage]
       )
     end
   end

@@ -6,6 +6,7 @@
   <p class="form_remarks">例）○○をやる、○○を終わらせる、○kg痩せる、○日禁煙する、等</p>
 </div>
 <div class="yarukotos clearfix">
+  <%= will_paginate @goals %>
   <% @goals.each do |goal| %>
   <div class="yarukoto">
     <div class="personal clearfix">
