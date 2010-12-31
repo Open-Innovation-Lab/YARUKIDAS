@@ -1,3 +1,4 @@
+<% if logged_in? %>
 <div class="todo_form">
   <% form_tag :action => :create_goal do %>
     <%= text_field_tag 'new_goal', '', :size => '70', :class => 'yrkds_text' %>
@@ -5,6 +6,7 @@
   <% end %>
   <p class="form_remarks">例）○○をやる、○○を終わらせる、○kg痩せる、○日禁煙する、等</p>
 </div>
+<% end %>
 <div class="yarukotos clearfix">
   <%= will_paginate @goals %>
   <% @goals.each do |goal| %>
