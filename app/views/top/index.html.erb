@@ -1,7 +1,25 @@
-<div id="top_logo">
-  <%= image_tag 'yrkds_logo_top.gif', :alt => 'ヤルキダス' %>
+<div class="clearfix">
+  <div class="floatmedium">
+    <div class="boxouter boxmedium bgbrown">
+      <div class="boxinner">
+        <%= image_tag 'intro.png', :size => '439x417', :class => 'intro' %>
+      </div>
+    </div>
+    <div class="boxouter boxmedium bgpurple">
+      <div class="boxinner">
+        <%= link_to image_tag('start.png', :size => '455x44', :border => '0'), login_path %>
+      </div>
+    </div>
+  </div>
+  <div class="floatmediumright">
+    <div class="boxouter boxmediumright bgpurple">
+      <div class="boxinner">
+        <%= link_to image_tag('login.png', :size => '463, 46', :border => '0'), login_path %>
+      </div>
+    </div>        
+    <div class="clearfix">
+      <%= render :partial => 'shared/all_goals_list' %>
+      <%= render :partial => 'shared/all_finished_goals_list' %>
+    </div>
+  </div>
 </div>
-<div id="top_login">
-  <%= link_to (image_tag 'yrkds_in.gif', :alt => '今日から本気出す', :border => '0'), :controller => 'sessions', :action => 'new' %>
-</div>
-<div id="footer">Produced by <a href="http://oil-710.com/" target="_blank">Open Innovation Lab</a></div>

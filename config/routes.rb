@@ -1,15 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :cheer_logs
-
-  map.resources :cheer_messages
-
-  map.resources :goals
-
-  map.resources :user_comments
-
-  map.resources :trainers_messages
-
-  map.resources :trainers
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -50,8 +39,22 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.
+
+  map.resources :cheer_logs
+
+  map.resources :cheer_messages
+
+  map.resources :goals, :member => {:finish => :post}, :except => ['index', 'show', 'edit', 'update']
+
+  map.resources :user_comments
+
+  map.resources :trainers_messages
+
+  map.resources :trainers
+
+  map.resources :users, :only => :show
   
-  map.connect 'u/:name', :controller => 'mypage'
+  map.connect 'u/:id', :controller => 'users', :action => 'show'
   map.connect 't/:name', :controller => 'trainers_messages', :action => 'show'
   map.connect 't/:name/:date', :controller => 'trainers_messages', :action => 'show'
 

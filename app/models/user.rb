@@ -38,6 +38,15 @@ class User < TwitterAuth::GenericUser
   # parent TwitterAuth::GenericUser class.
 
   has_many :cheer_messages
+  has_many :cheer_log
   has_many :user_comments
   has_many :goals
+  belongs_to :trainer
+
+  def rank
+    rank = self.goals.finished.count / 30
+    rank += 1
+    rank = 10 if self.login == 'kazuyo_k' #勝間さんは最高ランクに
+    return rank
+  end
 end

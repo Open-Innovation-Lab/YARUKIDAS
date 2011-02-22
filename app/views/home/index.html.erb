@@ -1,40 +1,72 @@
-<% if logged_in? %>
-<div class="todo_form">
-  <% form_tag :action => :create_goal do %>
-    <%= text_field_tag 'new_goal', '', :size => '70', :class => 'yrkds_text' %>
-    <%= submit_tag '目標設定＆ツイート', :class => 'yrkds_submit' %><br />
-  <% end %>
-  <p class="form_remarks">例）○○をやる、○○を終わらせる、○kg痩せる、○日禁煙する、等</p>
-</div>
-<% end %>
-<div class="yarukotos clearfix">
-  <%= will_paginate @goals %>
-  <% @goals.each do |goal| %>
-  <div class="yarukoto">
-    <div class="personal clearfix">
-      <div class="icon">
-        <%= image_tag goal.user.profile_image_url, :size => '48x48', :alt => 'profile_image', :border => '0' %>
+<div class="clearfix">
+  <div class="floatmedium">
+    <div class="boxouter boxmedium bgsoftred">
+      <div class="boxinner">
+        <div class="innerTitle clearfix">
+          <div class="icon"><%= image_tag 'mark_todo.png' %></div>
+          <div class="captionmedium">私のヤルコト</div>
+        </div>
+        <div class="formWrap">
+          <% form_for @new_goal do |f| %>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+            <%= f.text_field :subject, :class => 'text todo' %>
+            <%= submit_tag 'ヤルコト宣言' %>
+          <% end %>
+        </div>
+        <% if @mygoals.size == 0 %>
+          まだ宣言されていません
+        <% end %>
+        <% @mygoals.each do |mygoal| %>
+        <div class="todoWrap clearfix">
+          <div class="todo"><%= mygoal.subject %>
+            <%= link_to '<div class="ui-state-default ui-corner-all" title="削除" style="float:right;"><span class="ui-icon ui-icon-trash" style="float:right;"></span></div>', mygoal,  :confirm => '削除してよろしいですか？', :method => :delete %>
+          </div>
+          <div class="commit">
+            <%= link_to '<input type="submit" value="達成！" />', finish_goal_url(mygoal.id), :method => :post %>
+          </div>
+        </div>
+        <% end %>
       </div>
-      <div class="data">
-        <div class="name">
-          <%= goal.user.login%>さん
+    </div>
+    <%= render :partial => 'shared/trainers_message' %>
+    <%= render :partial => 'shared/cheer_messages_list' %>
+    <div class="boxouter boxmedium bggray">
+      <div class="boxinner">
+        <div class="innerTitle clearfix">
+          <div class="icon"><%= image_tag 'mark_clear.png' %></div>
+          <div class="captionmedium">私のヤッタコト</div>
         </div>
-        <div class="stars">
-          <%= goal.subject %>（<%= goal.created_at.strftime("%Y/%m/%d") %>）
+        <% if @myfinished_goals.size == 0 %>
+          まだ達成されていません
+        <% end %>
+        <% @myfinished_goals.each do |myfinished_goal| %>
+        <div class="todoWrap clearfix">
+          <div class="todo"><%= myfinished_goal.subject %>
+            <%= link_to '<div class="ui-state-default ui-corner-all" title="削除" style="float:right;"><span class="ui-icon ui-icon-trash" style="float:right;"></span></div>', myfinished_goal,  :confirm => '削除してよろしいですか？', :method => :delete %>
+          </div>
+<!--
+          <div class="commit">
+            <input type="submit" value="アーカイブ" />
+          </div>
+-->
         </div>
-        <div class="status">
-          <% form_tag ({ :action => 'cheer' }, { :style => 'float:left' }) do %>
-            <%= submit_tag 'がんばって！', :class => 'yrkds_submit' %>
-            <%= hidden_field_tag 'to_user_id', goal.user.id %>
-            <%= hidden_field_tag 'id', goal.id %>
-          <% end %>
-          <% form_tag :action => 'create_goal' do %>
-            <%= submit_tag '自分もヤル', :class => 'yrkds_submit' %>
-            <%= hidden_field_tag 'goal_id', goal.id %>
-          <% end %>
+        <% end %>
+        <div class="todoWrap">
+          <%= link_to '<input type="submit" value="すべて表示" />', :controller => 'goals', :action => 'archive', :id => current_user.login %>
         </div>
       </div>
     </div>
   </div>
-  <% end %>
+  <div class="floatmediumright">
+    <%= render :partial => 'shared/profile' %>
+    <div class="boxouter boxmediumright bglightgray">
+      <div class="boxinner">
+        <%= google_adsense %>
+      </div>
+    </div>
+    <div class="clearfix">
+      <%= render :partial => 'shared/all_goals_list' %>
+      <%= render :partial => 'shared/all_finished_goals_list'%>
+    </div>
+  </div>
 </div>

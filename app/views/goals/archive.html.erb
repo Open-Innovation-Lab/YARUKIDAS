@@ -1,0 +1,51 @@
+<div class="clearfix">
+  <div class="floatmedium">
+    <div class="boxouter_tab boxmedium bgsoftred">
+      <div class="boxinner">
+        <div class="innerTitle clearfix">
+          <div class="icon"><%= image_tag 'mark_todo.png' %></div>
+          <div class="captionmedium">私のヤルコト</div>
+        </div>
+        <div class="formWrap">
+          <% form_for @new_goal, :url => { :action => :create } do |f| %>
+            <%= f.text_field :subject, :class => 'text todo' %>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+            <%= submit_tag 'ヤルコト宣言' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="boxouter boxmedium bggray">
+      <div class="boxinner">
+        <div class="innerTitle clearfix">
+          <div class="icon"><%= image_tag 'mark_clear.png' %></div>
+          <div class="captionmedium">私のヤッタコト</div>
+        </div>
+        <% if @user.goals.finished.size == 0 %>
+          まだ達成されていません
+        <% end %>
+        <% @user.goals.finished.each do |goal| %>
+        <div class="todoWrap clearfix">
+          <div class="todo">
+            <%= goal.subject %>
+            <%= link_to '<div class="ui-state-default ui-corner-all" title="削除" style="float:right;"><span class="ui-icon ui-icon-trash" style="float:right;"></span>', goal, :confirm => '削除してよろしいですか？', :method => :delete %>
+            </div>
+          </div>
+<!--
+            <div class="commit">
+              <input type="submit" value="戻す" />
+            </div>
+-->
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="floatmediumright">
+    <%= render :partial => 'shared/profile' %>
+    <div class="clearfix">
+      <%= render :partial => 'shared/all_goals_list' %>
+      <%= render :partial => 'shared/all_finished_goals_list' %>
+    </div>
+  </div>
+</div>

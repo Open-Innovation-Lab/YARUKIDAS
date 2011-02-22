@@ -6,8 +6,5 @@ log/*.log
 log/*.pid 
 tmp/**/* 
 tmp/restart.txt
-config/database.yml
-config/twitter_auth.yml
 config/deploy.rb
-config/initializers/hoptoad.rb
 db/*.sqlite3

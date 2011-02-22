@@ -17,11 +17,11 @@ class ApplicationController < ActionController::Base
 protected
 
   def tweet(message)
-    if current_user.twitter.post('/statuses/update.json', :status => message)
-      redirect_to root_path
-    else
-      flash[:error] = 'ツイートに失敗しました。'
-      redirect_to root_path
+    if RAILS_ENV == 'production'
+      if current_user.twitter.post('/statuses/update.json', :status => message)
+      else
+        flash[:error] = 'ツイートに失敗しました。'
+      end
     end
 
     return
@@ -65,9 +65,14 @@ protected
     if current_user.id != 1
       redirect_to root_path
     end
+    redirect_to root_path
   end
 
   def site_domain
     return APP_CONFIG[:site_domain]
+  end
+
+  def login
+    redirect_to root_url unless logged_in?
   end
 end

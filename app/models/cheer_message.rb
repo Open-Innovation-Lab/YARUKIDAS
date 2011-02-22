@@ -11,8 +11,17 @@
 #
 
 class CheerMessage < ActiveRecord::Base
-  attr_accessible :id, :from_user_id, :to_user_id, :contents
-
   belongs_to :from_user, :class_name => 'User', :foreign_key => 'from_user_id'
   belongs_to :to_user, :class_name => 'User', :foreign_key => 'to_user_id'
+
+  validates_presence_of :contents
+
+  def self.messages(*args)
+    object = args.first
+    self.find(
+      :all,
+      :conditions => ['to_user_id = ?', object[:to_user_id]],
+      :order => 'created_at desc'
+    )
+  end
 end

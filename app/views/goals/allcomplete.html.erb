@@ -1,0 +1,108 @@
+<div class="clearfix">
+  <div class="floatmedium">
+    <div class="boxouter boxmedium bgsoftred">
+      <div class="boxinner">
+        <div class="innerTitle clearfix">
+          <div class="icon"><%= image_tag 'mark_todo.png' %></div>
+          <div class="captionmedium">私のヤルコト</div>
+        </div>
+        <div class="formWrap">
+          <% form_for @new_goal, :url => { :action => :create_goal } do |f| %>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+            <%= f.text_field :subject, :class => 'text todo' %>
+            <%= submit_tag 'ヤルコト宣言' %>
+          <% end %>
+        </div>
+        <% if @mygoals.size == 0 %>
+          まだ宣言されていません
+        <% end %>
+        <% @mygoals.each do |mygoal| %>
+        <div class="todoWrap clearfix">
+          <div class="todo"><%= mygoal.subject %>
+            <%= link_to '<div class="ui-state-default ui-corner-all" title="削除" style="float:right;"><span class="ui-icon ui-icon-trash" style="float:right;"></span></div>', mygoal,  :confirm => '削除してよろしいですか？', :method => :delete %>
+          </div>
+            <%= link_to '<div class="commit"><input type="submit" value="達成！" />', :action => 'finish_goal', :id => mygoal.id %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <%= render :partial => 'shared/trainers_message' %>
+    <%= render :partial => 'shared/cheer_messages_list' %>
+    <div class="boxouter boxmedium bggray">
+      <div class="boxinner">
+        <div class="innerTitle clearfix">
+          <div class="icon"><%= image_tag 'mark_clear.png' %></div>
+          <div class="captionmedium">私のヤッタコト</div>
+        </div>
+        <% if @myfinished_goals.size == 0 %>
+          まだ達成されていません
+        <% end %>
+        <% @myfinished_goals.each do |myfinished_goal| %>
+        <div class="todoWrap clearfix">
+          <div class="todo"><%= myfinished_goal.subject %>
+            <%= link_to '<div class="ui-state-default ui-corner-all" title="削除" style="float:right;"><span class="ui-icon ui-icon-trash" style="float:right;"></span></div>', myfinished_goal,  :confirm => '削除してよろしいですか？', :method => :delete %>
+          </div>
+<!--
+          <div class="commit"><input type="submit" value="アーカイブ" /></div>
+-->
+        </div>
+        <% end %>
+        <div class="todoWrap">
+          <%= link_to '<input type="submit" value="すべて表示" />', :controller => 'goals', :action => 'archive', :id => current_user.login %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="floatmediumright">
+    <%= render :partial => 'shared/profile' %>
+    <div class="clearfix">
+      <div class="floatsmall">
+        <div class="boxouter_tab boxsmall bggreen">
+          <div class="boxinner">
+            <div class="innerTitle clearfix">
+              <div class="icon"><%= image_tag 'mark_yarukoto.png' %></div>
+              <div class="captionsmall"><%= link_to 'みんなのヤルコト', :action => 'alltodo' %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="floatsmallright">
+        <div class="boxouter_tab boxsmall bgsoftorange">
+          <div class="boxinner">
+            <div class="innerTitle clearfix">
+              <div class="icon"><%= image_tag 'mark_star.png' %></div>
+              <div class="captionsmall">みんなのヤッタコト</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="boxconnecter boxmediumright bgsoftorange"><div class="boxinner_connecterright"></div></div>
+    <div class="boxouter_tabbody boxmediumright bgsoftorange">
+      <div class="boxinner">
+        <div class="status">
+          <%= todays_complete_count %> / <%= this_weeks_complete_count %>
+        </div>
+        <div class="paginator">
+          <%= will_paginate @finished_goals %>
+        </div>
+        <% @finished_goals.each do |finished_goal| %>
+        <div class="todoWrapRight clearfix">
+          <div class="body">
+            <p class="bodymain">
+              [<%= link_to finished_goal.subject, user_url(:id => finished_goal.user.login) %>]を達成！
+            </p>
+            <span class="date">[<%= finished_goal.created_at.strftime("%Y-%m-%d") %>]</span>
+            <span class="user"><%= link_to finished_goal.user.login, user_url(:id => finished_goal.user.login) %></span>
+          </div>
+          <div class="icon"><%= link_to image_tag(finished_goal.user.profile_image_url), user_url(:id => finished_goal.user.login) %></div>
+        </div>
+        <% end %>
+        <div class="paginator">
+          <%= will_paginate @finished_goals %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

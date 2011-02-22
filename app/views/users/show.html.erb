@@ -1,0 +1,78 @@
+<div class="clearfix">
+  <div class="floatmedium">
+  <div class="boxouter boxmedium bglightgreen">
+      <div class="boxinner">
+        <div class="userWrap clearfix">
+          <div class="icon"><%= image_tag @user.profile_image_url %></div>
+          <div class="params">
+            <div class="topbox clearfix">
+              <div class="name"><a href="#"><%= @user.login %></a></div>
+              <div class="stars"><%= rank_star @user.rank %></div>
+            </div>
+            <div class="clearfix">
+              <div class="record">ヤルコト：<%= @user.goals.todo.count %>件 / ヤッタコト：<%= @user.goals.finished.count %>件</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="boxouter boxmedium bglightgreen">
+      <div class="boxinner">
+        <div class="innerTitle clearfix">
+          <div class="icon"><%= image_tag 'mark_todo.png' %></div>
+          <div class="captionmedium"><%= @user.login %>さんのヤルコト</div>
+        </div>
+        <% if @user.goals.todo.size == 0 %>
+          まだ宣言されていません。
+        <% end %>
+        <% @user.goals.todo(:limit => 5).each do |user_goal| %>
+        <div class="todoWrap clearfix">
+          <div class="todo"><%= user_goal.subject %></div>
+          <% if logged_in? %>
+          <div class="commit">
+            <% form_for @new_cheer_log, :html => {:style => 'display: inline'} do |f| %>
+              <%= f.hidden_field :goal_id, :value => user_goal.id  %>
+              <%= f.hidden_field :from_user_id, :value => current_user.id  %>
+              <%= f.hidden_field :to_user_id, :value => @user.id  %>
+              <%= submit_tag 'がんばって！' %>
+            <% end %>
+            <% form_for @new_goal, :html => {:style => 'display: inline'} do |f| %>
+              <%= f.hidden_field :user_id, :value => current_user.id %>
+              <%= f.hidden_field :subject, :value => user_goal.subject  %>
+              <%= submit_tag '自分もヤル' %>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <%= render :partial => 'shared/cheer_messages_list' %>
+    <div class="boxouter boxmedium bggray">
+      <div class="boxinner">
+        <div class="innerTitle clearfix">
+          <div class="icon"><%= image_tag 'mark_clear.png' %></div>
+          <div class="captionmedium"><%= @user.login %>さんのヤッタコト</div>
+        </div>
+        <% if @user.goals.finished.size == 0 %>
+          まだ達成されていません。
+        <% end %>
+        <% @user.goals.finished(:limit => 10).each do |user_finished_goal| %>
+        <div class="todoWrap clearfix">
+          <div class="todo"><%= user_finished_goal.subject %></div>
+          <div class="commit"></div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="floatmediumright">
+    <% if logged_in? %>
+      <%= render :partial => 'shared/profile' %>
+    <% end %>
+    <div class="clearfix">
+      <%= render :partial => 'shared/all_goals_list' %>
+      <%= render :partial => 'shared/all_finished_goals_list'%>
+    </div>
+  </div>
+</div>

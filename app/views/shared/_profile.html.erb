@@ -1,0 +1,17 @@
+<div class="boxouter boxmediumright bgpurple">
+  <div class="boxinner">
+    <div class="userWrap clearfix">
+      <div class="icon"><%= image_tag current_user.profile_image_url, :size => '48x48' %></div>
+      <div class="params">
+        <div class="topbox clearfix">
+          <div class="name"><a href="#"><%= current_user.login %></a></div>
+          <div class="stars"><%= rank_star(current_user.rank) %></div>
+        </div>
+        <div class="clearfix">
+          <div class="record">ヤルコト：<%= current_user.goals.todo.count %>件 / ヤッタコト：<%= current_user.goals.finished(:limit => 10).count.inspect %>件</div>
+          <div class="logout"><%= link_to 'ログアウト', logout_path %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

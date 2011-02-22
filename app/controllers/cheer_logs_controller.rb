@@ -1,8 +1,4 @@
 class CheerLogsController < ApplicationController
-  before_filter :admin
-
-  # GET /cheer_logs
-  # GET /cheer_logs.xml
   def index
     @cheer_logs = CheerLog.all
 
@@ -12,8 +8,6 @@ class CheerLogsController < ApplicationController
     end
   end
 
-  # GET /cheer_logs/1
-  # GET /cheer_logs/1.xml
   def show
     @cheer_log = CheerLog.find(params[:id])
 
@@ -23,8 +17,6 @@ class CheerLogsController < ApplicationController
     end
   end
 
-  # GET /cheer_logs/new
-  # GET /cheer_logs/new.xml
   def new
     @cheer_log = CheerLog.new
 
@@ -34,29 +26,28 @@ class CheerLogsController < ApplicationController
     end
   end
 
-  # GET /cheer_logs/1/edit
   def edit
     @cheer_log = CheerLog.find(params[:id])
   end
 
-  # POST /cheer_logs
-  # POST /cheer_logs.xml
   def create
     @cheer_log = CheerLog.new(params[:cheer_log])
 
-    respond_to do |format|
-      if @cheer_log.save
-        format.html { redirect_to(@cheer_log, :notice => 'CheerLog was successfully created.') }
-        format.xml  { render :xml => @cheer_log, :status => :created, :location => @cheer_log }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @cheer_log.errors, :status => :unprocessable_entity }
+    if @cheer_log.save
+      if RAILS_ENV == "production"
+        goal = Goal.find(@cheer_log.goal_id)
+        @shorten_url = shorten_url(user_page_url goal.user.login)
+        @tweet = "がんばって！ RT @" + goal.user.login + ":「" + goal.subject + "」 " + @shorten_url + " #yrkds"
+
+        tweet @tweet
+        redirect_to root_path, :notice => @cheer_log.to_user.login + 'さんを応援しました！'
+        return
       end
+    else
+      redirect_to :back
     end
   end
 
-  # PUT /cheer_logs/1
-  # PUT /cheer_logs/1.xml
   def update
     @cheer_log = CheerLog.find(params[:id])
 
@@ -71,10 +62,12 @@ class CheerLogsController < ApplicationController
     end
   end
 
-  # DELETE /cheer_logs/1
-  # DELETE /cheer_logs/1.xml
   def destroy
     @cheer_log = CheerLog.find(params[:id])
+
+    redirect_to root_url
+    return 
+
     @cheer_log.destroy
 
     respond_to do |format|

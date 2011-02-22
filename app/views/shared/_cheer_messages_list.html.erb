@@ -1,0 +1,33 @@
+<div class="boxouter boxmedium bgsoftorange">
+  <div class="boxinner">
+    <div class="innerTitle clearfix">
+      <div class="icon"><%= image_tag 'mark_message.png' %></div>
+      <div class="captionmedium">応援・激励メッセージ</div>
+    </div>
+    <% if params[:controller] == 'users' %>
+    <% if logged_in? %>
+    <div class="formWrap">
+      <% form_for @new_cheer_message do |f| %>
+        <%= f.text_field :contents, :class => 'text todo' %>
+        <%= f.hidden_field :to_user_id, :value => @user.id %>
+        <%= f.hidden_field :from_user_id, :value => current_user.id %>
+        <%= submit_tag '応援する' %>
+      <% end %>
+    </div>
+    <% end %>
+    <% end %>
+    <% if @cheer_messages.size == 0 %>
+      まだ応援されていません
+    <% end %>
+    <% @cheer_messages.each do |cheer_message| %>
+    <div class="todoWrap clearfix">
+      <div class="todo">
+        <%= cheer_message.contents %>
+        <span class="date">[<%= cheer_message.created_at.strftime("%Y-%m-%d") %>]</span>
+        <span class="user"><%= cheer_message.from_user.login %></span>
+      </div>
+      <div class="commit"></div>
+    </div>
+    <% end %>
+  </div>
+</div>

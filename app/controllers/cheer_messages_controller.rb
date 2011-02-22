@@ -1,6 +1,4 @@
 class CheerMessagesController < ApplicationController
-  before_filter :admin
-
   def index
     @cheer_messages = CheerMessage.all
   end
@@ -16,10 +14,10 @@ class CheerMessagesController < ApplicationController
   def create
     @cheer_message = CheerMessage.new(params[:cheer_message])
     if @cheer_message.save
-      flash[:notice] = "Successfully created cheer message."
-      redirect_to @cheer_message
+      redirect_to :back, :notice => '応援メッセージを送りました。'
     else
       render :action => 'new'
+      redirect_to :back
     end
   end
   

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101012110303) do
+ActiveRecord::Schema.define(:version => 20110131123715) do
 
   create_table "cheer_logs", :force => true do |t|
     t.integer  "goal_id"
@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(:version => 20101012110303) do
 
   create_table "goals", :force => true do |t|
     t.integer  "user_id"
-    t.datetime "opened_at"
     t.datetime "closed_at"
     t.integer  "status"
     t.text     "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
   create_table "trainers", :force => true do |t|
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20101012110303) do
     t.string   "time_zone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "trainer_id",                   :default => 1, :null => false
   end
 
 end

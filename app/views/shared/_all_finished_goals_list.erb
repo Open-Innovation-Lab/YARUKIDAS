@@ -1,0 +1,29 @@
+<div class="floatsmallright">
+  <div class="boxouter boxsmall bgsoftorange">
+    <div class="boxinner">
+      <div class="innerTitle clearfix">
+        <div class="icon"><%= image_tag 'mark_star.png'%> </div>
+        <div class="captionsmall">みんなのヤッタコト</div>
+      </div>
+      <div class="status">
+        <%= todays_complete_count %><br/>
+        <%= this_weeks_complete_count %>
+      </a></div>
+      <% @finished_goals.each do |finished_goal| %>
+      <div class="dataSmall clearfix">
+        <div class="body">
+          [<%= link_to finished_goal.subject, user_url(:id => finished_goal.user.login) %>]を達成<span class="date">[<%= finished_goal.closed_at.strftime("%Y/%m/%d") %>]</span> <span class="user"> <%= link_to finished_goal.user.login, user_url(:id => finished_goal.user.login) %></span>
+        </div>
+        <div class="icon">
+          <%= link_to image_tag(finished_goal.user.profile_image_url, :size => "48x48"), user_url(:id => finished_goal.user.login) %>
+        </div>
+      </div>
+      <% end %>
+      <% if logged_in? %>
+      <div class="dataSmall">
+        <%= link_to '<input type="submit" value="すべて表示" />', :controller => 'goals', :action => 'allcomplete' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

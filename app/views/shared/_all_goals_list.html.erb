@@ -1,0 +1,27 @@
+<div class="floatsmall">
+  <div class="boxouter boxsmall bggreen">
+    <div class="boxinner">
+      <div class="innerTitle clearfix">
+        <div class="icon"><%= image_tag 'mark_yarukoto.png' %></div>
+        <div class="captionsmall">みんなのヤルコト</div>
+      </div>
+      <div class="status" >
+        <%= todays_todo_count %><br/>
+        <%= this_weeks_todo_count %>
+      </div>
+      <% @goals.each do |goal| %>
+      <div class="dataSmall clearfix">
+        <div class="body">
+          [<%= link_to goal.subject, user_url(:id => goal.user.login) %>]を追加<span class="date">[<%= goal.created_at.strftime("%Y/%m/%d") %>]</span> <span class="user"><%= link_to goal.user.login, user_url(:id => goal.user.login) %></span>
+        </div>
+        <div class="icon"><%= link_to image_tag(goal.user.profile_image_url, :size => "48x48"), user_url(:id => goal.user.login) %></div>
+      </div>
+      <% end %>
+      <% if logged_in? %>
+      <div class="dataSmall">
+        <%= link_to '<input type="submit" value="すべて表示" />', :controller => 'goals', :action => 'alltodo' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
