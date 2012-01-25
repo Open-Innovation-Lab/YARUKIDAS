@@ -78,7 +78,7 @@ protected
 
   def check_from_user
     params.each_pair do |key, value|
-      if key =~ /from_user_id$/ && current_user.id != value
+      if key.to_s =~ /from_user_id$/ && current_user.id != value
         redirect_to root_url 
         return false
       end
