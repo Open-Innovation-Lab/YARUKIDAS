@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :check_from_user
+
   def show
     unless logged_in? or params[:id]
       redirect_to :controller => 'top'

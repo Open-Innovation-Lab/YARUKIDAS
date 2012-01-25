@@ -75,4 +75,13 @@ protected
   def login
     redirect_to root_url unless logged_in?
   end
+
+  def check_from_user
+    params.each_pair do |key, value|
+      if key =~ /from_user_id$/ && current_user.id != value
+        redirect_to root_url 
+        return false
+      end
+    end
+  end
 end

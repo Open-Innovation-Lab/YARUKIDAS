@@ -1,4 +1,6 @@
 class CheerMessagesController < ApplicationController
+  before_filter :check_from_user
+
   def index
     @cheer_messages = CheerMessage.all
   end
