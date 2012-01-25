@@ -1,5 +1,6 @@
 class UserCommentsController < ApplicationController
   before_filter :admin, :except => 'show'
+  before_filter :check_from_user
 
   def index
     @user_comments = UserComment.all

@@ -1,5 +1,6 @@
 class TrainersMessagesController < ApplicationController
   before_filter :admin, :except => ['show', 'read_more_trainer_message']
+  before_filter :check_from_user
 
   def index
     @trainers_messages = TrainersMessage.all

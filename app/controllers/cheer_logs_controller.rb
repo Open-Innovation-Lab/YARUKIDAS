@@ -1,4 +1,6 @@
 class CheerLogsController < ApplicationController
+  before_filter :check_from_user
+
   def index
     @cheer_logs = CheerLog.all
 

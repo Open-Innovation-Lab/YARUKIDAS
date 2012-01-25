@@ -1,5 +1,6 @@
 class TrainersController < ApplicationController
   before_filter :admin
+  before_filter :check_from_user
 
   def index
     @trainers = Trainer.all

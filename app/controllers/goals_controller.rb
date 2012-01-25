@@ -1,5 +1,6 @@
 class GoalsController < ApplicationController
   before_filter :login
+  before_filter :check_from_user
 
   def create
     @goal = Goal.new(params[:goal])
